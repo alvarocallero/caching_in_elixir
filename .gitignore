@@ -1,0 +1,91 @@
+# App artifacts
+/_build
+/db
+/deps
+/*.ez
+/*.DS_store
+*/*.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
+/*.deprecated
+/cover
+/doc
+
+*/**/.DS_Store
+
+/local.json
+
+*.elixir_ls
+# Generated on crash by the VM
+erl_crash.dump
+
+# Generated on crash by NPM
+npm-debug.log
+
+# Static artifacts
+/assets/node_modules
+node_modules
+
+
+# Files matching config/*.secret.exs pattern contain sensitive
+# data and you should not commit them into version control.
+#
+# Alternatively, you may comment the line below and commit the
+# secrets files as long as you replace their contents by environment
+# variables.
+/config/*.secret.exs
+
+# yarn error log
+/assets/yarn-error.log
+
+# .swp
+*.swp
+.vim/
+
+# .deprecated
+.deprecated/
+
+test/fixtures/vopay_sftp/**/*
+test/fixtures/vopay_etransfer/**/*
+
+# Jetbrains
+.idea
+accounts_manager.iml
+
+
+# asdf
+.tool-versions
+.asdf
+
+# environment variables
+.env
+
+#localhost share
+pagekite.py
+
+# vault config.json
+config.json
+
+#custom iex
+.iex.exs
+
+/log/
+
+config/dev.local.exs
+
+# Ignore tmp files with tests
+tmp
+
+# Dev shortcuts
+.iex.exs
+
+# log.catalx@127.0.0.1 and log.nonode@nohost:
+log.*@*
+
+# Dialyzer errors
+dialyzer_errors
+
+# Automatically generated api usage examples
+/priv/api_doc/test_examples.md
+
+graphql_api.iml

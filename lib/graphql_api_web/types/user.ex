@@ -26,4 +26,9 @@ defmodule GraphqlApiWeb.Types.User do
     field :likes_phone_calls, :boolean
     field :likes_faxes, :boolean
   end
+
+  @desc "The state of the app"
+  object :app_state do
+    field :emails, list_of(:string)
+  end
 end

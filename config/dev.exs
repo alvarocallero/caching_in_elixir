@@ -39,6 +39,6 @@ config :graphql_api, cache_entry_ttl_in_ss: 180
 
 # set the values for the redis cache for the graphql requests
 config :graphql_api, redis_pool_name: :redis_graphql_cache
-config :graphql_api, redis_pool_size: 5
-config :graphql_api, redis_max_overflow: 15
-config :graphql_api, redis_ttl_in_seconds: 15
+config :graphql_api, redis_pool_size: 10
+config :graphql_api, redis_max_overflow: 20
+config :graphql_api, redis_ttl_in_seconds: 10

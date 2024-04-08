@@ -9,7 +9,8 @@ defmodule GraphqlApi.Application do
       config: [
         hosts: [
           :node1@localhost,
-          :node2@localhost
+          :node2@localhost,
+          :node3@localhost
         ]
       ]
     ]
@@ -22,10 +23,10 @@ defmodule GraphqlApi.Application do
         {Phoenix.PubSub, name: GraphqlApi.PubSub},
         GraphqlApiWeb.Endpoint,
         GraphqlApi.Repo,
-        {DeltaCrdt, crdt: DeltaCrdt.AWLWWMap, name: :requests_counter_store_cache},
-        GraphqlApi.RequestsCounterStore,
+        {DeltaCrdt, crdt: DeltaCrdt.AWLWWMap, name: :crdt_cache},
+        GraphqlApiWeb.Cache.RequestsCache,
         {Redix, name: :redix},
-        GraphqlApiWeb.Cache.RequestsCache
+        GraphqlApi.CrdtNodeManager
       ]
 
     children =

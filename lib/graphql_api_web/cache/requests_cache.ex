@@ -1,6 +1,6 @@
 defmodule GraphqlApiWeb.Cache.RequestsCache do
   @moduledoc """
-  This module is responsible for caching graphql requests using Redis as the cache system with Poolboy.
+  This module is responsible for caching graphql requests using Redis as the cache system with Poolboy to manage the transactions.
   The value of the ttl provided will be in seconds.
   """
 

@@ -30,10 +30,9 @@ defmodule GraphqlApiWeb.Schema.Queries.User do
       resolve(&Resolver.User.filter_by_preferences/2)
     end
 
-    @desc "Get a map with all the request's hits"
-    field :resolver_hits, :integer do
-      arg(:key, non_null(:string))
-      resolve(&Resolver.RequestsCounter.get_requests_hits/2)
+    @desc "Get the state of the app"
+    field :state, :app_state do
+      resolve(&Resolver.User.get_app_state/2)
     end
   end
 end

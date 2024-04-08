@@ -23,7 +23,7 @@ config :phoenix, :json_library, Jason
 config :graphql_api, env: Mix.env()
 
 config :request_cache_plug,
-  enabled?: true,
+  enabled?: false,
   verbose?: true,
   graphql_paths: ["/graphiql", "/graphql"],
   conn_priv_key: :__shared_request_cache__,

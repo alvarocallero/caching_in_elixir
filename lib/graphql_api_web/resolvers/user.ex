@@ -2,34 +2,39 @@ defmodule GraphqlApiWeb.Resolver.User do
   @moduledoc false
 
   alias GraphqlApi.Accounts
-  alias GraphqlApi.RequestsCounterStore
+  alias GraphqlApi.CrdtNodeManager
 
   require Logger
 
   def find_by_id(%{id: id}, _) do
-    RequestsCounterStore.increment_request_counter("user")
     id = String.to_integer(id)
     Accounts.find_user(%{id: id})
   end
 
   def filter_by_preferences(params, _) do
-    RequestsCounterStore.increment_request_counter("users")
     users = Accounts.list_users(params)
     {:ok, users}
   end
 
   def update(%{id: id} = params, _) do
-    RequestsCounterStore.increment_request_counter("update_user")
     id = String.to_integer(id)
     params = Map.delete(params, :id)
-    Accounts.update_user(id, params)
+    {:ok, old_user} = Accounts.find_user(%{id: id})
+
+    case Accounts.update_user(id, params) do
+      {:ok, user} ->
+        CrdtNodeManager.update_user_email(old_user.email, user.email)
+        {:ok, user}
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   def create(params, _) do
-    RequestsCounterStore.increment_request_counter("create_user")
-
     case Accounts.create_user(params) do
       {:ok, user} ->
+        CrdtNodeManager.add_email_to_list(:emails, user.email)
         {:ok, user}
 
       {:error, error} ->
@@ -38,7 +43,6 @@ defmodule GraphqlApiWeb.Resolver.User do
   end
 
   def update_preferences(%{id: id} = params, _) do
-    RequestsCounterStore.increment_request_counter("update_user_preferences")
     id = String.to_integer(id)
 
     with {:ok} <- empty_preferences?(params.preferences),
@@ -46,6 +50,11 @@ defmodule GraphqlApiWeb.Resolver.User do
          {:ok, _preference} <- Accounts.update_preferences(user, params.preferences) do
       {:ok, user}
     end
+  end
+
+  def get_app_state(_params, _) do
+    state = CrdtNodeManager.get_state()
+    {:ok, state}
   end
 
   defp empty_preferences?(preferences) when preferences === %{},

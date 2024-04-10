@@ -1,5 +1,7 @@
 defmodule GraphqlApi.Accounts do
-  @moduledoc false
+  @moduledoc """
+  This module is responsible for managing the operations that can be made on the users.
+  """
   alias EctoShorts.Actions
   alias GraphqlApi.Accounts.Preference
   alias GraphqlApi.Accounts.User
@@ -13,6 +15,7 @@ defmodule GraphqlApi.Accounts do
     |> get_all_users(params)
   end
 
+  @spec find_user(keyword() | map()) :: {:error, any()} | {:ok, %{optional(atom()) => any()}}
   def find_user(params) do
     Actions.find(User, params)
   end

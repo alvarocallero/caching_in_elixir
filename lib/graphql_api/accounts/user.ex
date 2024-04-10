@@ -1,5 +1,7 @@
 defmodule GraphqlApi.Accounts.User do
-  @moduledoc false
+  @moduledoc """
+  This module is responsible for managing the users in the system.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

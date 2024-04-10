@@ -1,5 +1,7 @@
 defmodule GraphqlApi.Utils do
-  @moduledoc false
+  @moduledoc """
+  Common utils module
+  """
   def string_keys_to_atom(map) when is_map(map) do
     Map.new(map, fn {k, v} -> {convert_key(k), convert_value(v)} end)
   end

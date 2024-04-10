@@ -1,5 +1,7 @@
 defmodule GraphqlApi.Accounts.Preference do
-  @moduledoc false
+  @moduledoc """
+  This module is responsible for managing the preferences of the users.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

@@ -6,7 +6,7 @@ defmodule GraphqlApiWeb.Cache.RequestsCache do
 
   @pool_name Application.compile_env(:graphql_api, :redis_graphql_cache)
   @pool_size Application.compile_env(:graphql_api, :redis_pool_size)
-  @max_overlow Application.compile_env(:graphql_api, :redis_max_overflow)
+  @max_overflow Application.compile_env(:graphql_api, :redis_max_overflow)
 
   def child_spec(_opts) do
     :poolboy.child_spec(
@@ -14,7 +14,7 @@ defmodule GraphqlApiWeb.Cache.RequestsCache do
       name: {:local, @pool_name},
       worker_module: Redix,
       size: @pool_size,
-      max_overflow: @max_overlow
+      max_overflow: @max_overflow
     )
   end
 

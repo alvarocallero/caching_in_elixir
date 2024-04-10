@@ -1,5 +1,7 @@
 defmodule GraphqlApiWeb.Resolver.User do
-  @moduledoc false
+  @moduledoc """
+  This module is the graphql resolver for the User type.
+  """
 
   alias GraphqlApi.Accounts
   alias GraphqlApi.CrdtNodeManager
@@ -19,12 +21,17 @@ defmodule GraphqlApiWeb.Resolver.User do
   def update(%{id: id} = params, _) do
     id = String.to_integer(id)
     params = Map.delete(params, :id)
-    {:ok, old_user} = Accounts.find_user(%{id: id})
 
-    case Accounts.update_user(id, params) do
-      {:ok, user} ->
-        CrdtNodeManager.update_user_email(old_user.email, user.email)
-        {:ok, user}
+    case Accounts.find_user(%{id: id}) do
+      {:ok, old_user} ->
+        case Accounts.update_user(id, params) do
+          {:ok, user} ->
+            CrdtNodeManager.update_user_email(old_user.email, user.email)
+            {:ok, user}
+
+          {:error, error} ->
+            {:error, error}
+        end
 
       {:error, error} ->
         {:error, error}
